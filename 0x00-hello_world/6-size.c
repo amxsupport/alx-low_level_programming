@@ -1,7 +1,7 @@
 /*
  * File: 6-size.c
  */
-#include <stdio.h>
+#include<stdio.h>
 /**
  * main - Print the size of various type based on 
  * the computer it is cop=mpiled and run on ..
@@ -15,6 +15,6 @@ int main(void)
 	printf("Size of a long int: %zu byte(s)\n", sizeof(long int));
 	printf("Size of a long long int: %zu byte(s)\n", sizeof(long long int));
 	printf("Size of a float: %zu byte(s)\n", sizeof(float));
-    
+	
 	return (0);
 }
