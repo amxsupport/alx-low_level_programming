@@ -3,7 +3,8 @@
  */
 #include<stdio.h>
 /**
-* main - Print the size of various type based on the computer it is cop=mpiled and run on ..
+* main - Print the size of various type based
+* on the computer it is cop=mpiled and run on ..
 *
 * Return: Always 0 (Success)
 */
