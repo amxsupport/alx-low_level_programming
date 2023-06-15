@@ -1,5 +1,7 @@
+/*
+ * File: 6-size.c
+ */
 #include <stdio.h>
-
 /**
  * main - Print the size of various type based on 
  * the computer it is cop=mpiled and run on ..
