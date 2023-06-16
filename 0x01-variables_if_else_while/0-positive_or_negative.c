@@ -1,7 +1,9 @@
 /*
 * File: 0-positive_or_negative
 */
-#include<stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <stdio.h>
 /**
 * main - Print a number positive or negative
 *
