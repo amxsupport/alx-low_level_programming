@@ -1,6 +1,10 @@
-#ifndef main
-#define main
+#ifndef MAIN_H
+#define MAIN_H
 
-/*Function prototypes*/
+/*
+ * Function prototypes
+ *
+ * 
+ */
 int _putchar(char c);
 #endif
