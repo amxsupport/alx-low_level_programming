@@ -2,7 +2,7 @@
 * File: 0-putchar.c
 */
 #include "main.h"
-/**
+/*
 * main - Print _putchar
 *
 * Return: Always 0 (Success)
