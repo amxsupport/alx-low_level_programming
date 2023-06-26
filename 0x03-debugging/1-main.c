@@ -13,7 +13,7 @@ int main(void)
 
 	i = 0;
 
-	while (i > 10)
+	for (, i < 10, i++)
 	{
 		putchar(i);
 	}
