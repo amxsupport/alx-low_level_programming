@@ -19,7 +19,7 @@ char *_memcpy(char *dest, char *src, unsigned int n)
 	int index = 0;
 	int i = n;
 
-	for (; index < i; r++)
+	for (; index < i; index++)
 	{
 		dest[index] = src[index];
 		n--;
