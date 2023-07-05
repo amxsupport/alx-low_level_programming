@@ -38,5 +38,5 @@ int isPrimeRecursive(int n, int divisor)
 */
 int is_prime_number(int n)
 {
-	return (is_prime_number(n, n - 1));
+	return (isPrimeRecursive(n, n - 1));
 }
