@@ -1,34 +1,39 @@
+/*
+ * File: 4-add.c
+ *
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
+
 /**
- * main - entry point for program
+ * main - Prints the addition of positive numbers,
+ *        followed by a new line.
+ * @argc: The number of arguments passed to the program.
+ * @argv: An array of pointers to the arguments.
  *
- * @argc: count of args present
- * @argv: array of char * pointing to args
- *
- * Return: always 0 (success)
+ * Return: If one of the numbers contains symbols that are non-digits - 1.
+ *         Otherwise - 0.
  */
 int main(int argc, char *argv[])
 {
-	int i, sum = 0;
+	int num, digit, sum = 0;
 
-	for (i = 1; i < argc; i++)
+	for (num = 1; num < argc; num++)
 	{
-		if (!atoi(argv[i])) /* non numeric */
+		for (digit = 0; argv[num][digit]; digit++)
 		{
-			printf("Error\n");
-			return (1);
+			if (argv[num][digit] < '0' || argv[num][digit] > '9')
+			{
+				printf("Error\n");
+				return (1);
+			}
 		}
-		else if (argc == 1) /* no arguments */
-		{
-			printf("%d\n", sum);
-		}
-		sum += atoi(argv[i]);
+
+		sum += atoi(argv[num]);
 	}
-	if (argc > 1)
-	{
-		printf("%d\n", sum);
-	}
+
+	printf("%d\n", sum);
 
 	return (0);
 }
