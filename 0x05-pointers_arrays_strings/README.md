@@ -5,7 +5,7 @@ the differences between the two as well as how to use and manipulate strings in 
 
 ## Tests :heavy_check_mark:
 
-* [tests](./tests): Folder of test files. Provided by Holberton School.
+* [tests](./tests): Folder of test files. Provided by Alx School.
 
 ## Helper File :raised_hands:
 
@@ -13,7 +13,7 @@ the differences between the two as well as how to use and manipulate strings in 
 
 ## Header File :file_folder:
 
-* [holberton.h](holberton.h): Header file containing prototypes for all functions written in the project.
+* [main.h](main.h): Header file containing prototypes for all functions written in the project.
 
 | File              | Prototype                               |
 | ----------------- | --------------------------------------- |
