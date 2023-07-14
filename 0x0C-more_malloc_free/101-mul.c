@@ -10,7 +10,39 @@ int isPositiveNumber(const char *str);
 int multiplyNumbers(const char *num1, const char *num2);
 int _isdigit(int c);
 size_t _strlen(const char *str);
-void *_calloc(unsigned int nmemb, unsigned int size);
+void *calloc_custom(size_t num_elements, size_t element_size);
+
+/**
+ * calloc_custom - Allocates memory for an array of a certain number
+ *           of elements each of an inputted byte size.
+ * @num_elements: The number of elements.
+ * @element_size: The byte size of each array element.
+ *
+ * Return: If nmemb = 0, size = 0, or the function fails - NULL.
+ *         Otherwise - a pointer to the allocated memory.
+ */
+void *calloc_custom(size_t num_elements, size_t element_size)
+{
+	/* Check for zero elements or zero element size */
+	if (num_elements == 0 || element_size == 0)
+		return (NULL);
+
+	/* Calculate the total size to allocate */
+	size_t total_size = num_elements * element_size;
+
+	/* Allocate memory using malloc */
+	void *ptr = malloc(total_size);
+
+	/* If allocation failed, return NULL */
+	if (ptr == NULL)
+		return (NULL);
+
+	/* Clear the allocated memory block to zero */
+
+	memset(ptr, 0, total_size);
+
+	return (ptr);
+}
 
 /**
  * isPositiveNumber - check if two positive numbers.
@@ -37,7 +69,7 @@ int isPositiveNumber(const char *str)
  *
  * Return: 1 if the number is a digit, 0 otherwise.
  */
-int _isdigit(int c)
+int _isdigit(char c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);
@@ -81,7 +113,7 @@ int multiplyNumbers(const char *num1, const char *num2)
 	len1 = _strlen(num1);
 	len2 = _strlen(num2);
 	lenResult = len1 + len2;
-	result = _calloc(lenResult, sizeof(int));
+	result = calloc_custom(lenResult, sizeof(int));
 
 	if (result == NULL)
 		return (-1);
@@ -135,7 +167,7 @@ int main(int argc, char *argv[])
 	if (argc != 3)
 	{
 		printf("Error\n");
-		exit(98);
+		return (98);
 	}
 
 	num1 = argv[1];
@@ -144,7 +176,7 @@ int main(int argc, char *argv[])
 	if (!isPositiveNumber(num1) || !isPositiveNumber(num2))
 	{
 		printf("Error\n");
-		exit(98);
+		return (98);
 	}
 
 	multiplyNumbers(num1, num2);
