@@ -5,7 +5,6 @@
 
 #include "main.h"
 #include <stdlib.h>
-#include <stdio.h>
 #include <string.h>
 
 /**
@@ -44,7 +43,10 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 
 	/* Copy contents from old memory block to new memory block */
 
-	size_t copy_size = old_size < new_size ? old_size : new_size;
+	size_t copy_size = old_size;
+
+	if (old_size >= new_size)
+		copy_size = new_size;
 
 	memcpy(new_ptr, ptr, copy_size);
 
