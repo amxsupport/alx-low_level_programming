@@ -6,6 +6,8 @@
 #include "main.h"
 #include <stdlib.h>
 
+void *_memcpy(void *dest, const void *src, size_t n);
+
 /**
  * _realloc - Reallocates a memory block using malloc and free.
  * @ptr: A pointer to the memory previously allocated.
