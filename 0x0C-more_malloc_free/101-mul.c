@@ -2,6 +2,7 @@
  * File: 101-mul.c
  *
  */
+#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "main.h"
