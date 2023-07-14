@@ -5,7 +5,6 @@
 
 #include "main.h"
 #include <stdlib.h>
-#include <string.h>
 
 /**
  * _realloc - Reallocates a memory block using malloc and free.
@@ -19,6 +18,9 @@
  */
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
+	void *new_ptr;
+	size_t copy_size;
+
 	/* If ptr is NULL, equivalent to malloc(new_size) */
 	if (ptr == NULL)
 		return (malloc(new_size));
@@ -36,22 +38,43 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 
 	/* Allocate new memory block with new_size */
 
-	void *new_ptr = malloc(new_size);
+	new_ptr = malloc(new_size);
 
 	if (new_ptr == NULL)
 		return (NULL);
 
 	/* Copy contents from old memory block to new memory block */
 
-	size_t copy_size = old_size;
+	copy_size = old_size;
 
 	if (old_size >= new_size)
 		copy_size = new_size;
 
-	memcpy(new_ptr, ptr, copy_size);
+	_memcpy(new_ptr, ptr, copy_size);
 
 	/* Free the old memory block */
 	free(ptr);
 
 	return (new_ptr);
+}
+
+/**
+ * _memcpy - Copies @n bytes from the memory area pointed
+ *           to by @src into that pointed to by @dest.
+ * @dest: A pointer to the memory area to copy @src into.
+ * @src: The source buffer to copy characters from.
+ * @n: The number of bytes to copy from @src.
+ *
+ * Return: A pointer to the destination buffer @dest.
+ */
+void *_memcpy(void *dest, const void *src, size_t n)
+{
+	unsigned int index;
+	unsigned char *destination = dest;
+	const unsigned char *source = src;
+
+	for (index = 0; index < n; index++)
+		destination[index] = source[index];
+
+	return (dest);
 }
