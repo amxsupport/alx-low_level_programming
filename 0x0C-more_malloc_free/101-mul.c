@@ -1,186 +1,156 @@
-/*
- * File: 101-mul.c
- *
- */
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include "main.h"
-
-int isPositiveNumber(const char *str);
-int multiplyNumbers(const char *num1, const char *num2);
-int _isdigit(int c);
-size_t _strlen(const char *str);
-void *calloc_custom(size_t num_elements, size_t element_size);
-
+#include <limits.h>
 /**
- * calloc_custom - Allocates memory for an array of a certain number
- *           of elements each of an inputted byte size.
- * @num_elements: The number of elements.
- * @element_size: The byte size of each array element.
- *
- * Return: If nmemb = 0, size = 0, or the function fails - NULL.
- *         Otherwise - a pointer to the allocated memory.
+ * str_len - finds string length
+ * @str: input pointer to string
+ * Return: length of string
  */
-void *calloc_custom(size_t num_elements, size_t element_size)
+int str_len(char *str)
 {
-	/* Check for zero elements or zero element size */
-	if (num_elements == 0 || element_size == 0)
-		return (NULL);
+	int len;
 
-	/* Calculate the total size to allocate */
-	size_t total_size = num_elements * element_size;
-
-	/* Allocate memory using malloc */
-	void *ptr = malloc(total_size);
-
-	/* If allocation failed, return NULL */
-	if (ptr == NULL)
-		return (NULL);
-
-	/* Clear the allocated memory block to zero */
-
-	memset(ptr, 0, total_size);
-
-	return (ptr);
+	for (len = 0; *str != '\0'; len++)
+		len++, str++;
+	return (len / 2);
 }
-
 /**
- * isPositiveNumber - check if two positive numbers.
- * @str: input string.
- *
- * Description: this function return the 0 or 1 if the str given is a digit.
- *
- * Return: 0 if the str is not digit and Return  1 if str is digit.
+ * _calloc - allocates memory for an array using malloc
+ * @bytes: bytes of memory needed per size requested
+ * @size: size in bytes of each element
+ * Return: pointer to the allocated memory
  */
-int isPositiveNumber(const char *str)
+void *_calloc(unsigned int bytes, unsigned int size)
 {
-	while (*str)
+	unsigned int i;
+	char *p;
+
+	if (bytes == 0 || size == 0)
+		return (NULL);
+	if (size >= UINT_MAX / bytes || bytes >= UINT_MAX / size)
+		return (NULL);
+	p = malloc(size * bytes);
+	if (p == NULL)
+		return (NULL);
+	for (i = 0; i < bytes * size; i++)
+		p[i] = 0;
+	return ((void *)p);
+}
+/**
+ * add_arrays - adds 2 arrays of ints
+ * @mul_result: pointer to array with numbers from product
+ * @sum_result: pointer to array with numbers from total sum
+ * @len_r: length of both arrays
+ * Return: void
+ */
+void add_arrays(int *mul_result, int *sum_result, int len_r)
+{
+	int i = 0, len_r2 = len_r - 1, carry = 0, sum;
+
+	while (i < len_r)
 	{
-		if (!_isdigit(*str))
-			return (0);
-		str++;
+		sum = carry + mul_result[len_r2] + sum_result[len_r2];
+		sum_result[len_r2] = sum % 10;
+		carry = sum / 10;
+		i++;
+		len_r2--;
 	}
-	return (1);
 }
-
 /**
- * _isdigit - Checks for a digit (0-9).
- * @c: The number to be checked.
- *
- * Return: 1 if the number is a digit, 0 otherwise.
+ * is_digit - checks for digits
+ * @c: input character to check for digit
+ * Return: 0 failure, 1 success
  */
-int _isdigit(char c)
+int is_digit(char c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);
-
-	else
-		return (0);
-}
-/**
- * _strlen - returns the length of a string.
- *
- * @str: The string to get the length of.
- *
- * Description: Returns the length of a string.
- *
- * Return: The length of @str.
-*/
-size_t _strlen(const char *str)
-{
-	size_t length = 0;
-
-	while (*str++)
-		length++;
-
-	return (length);
-}
-
-/**
- * multiplyNumbers - Multiplies two positive numbers.
- * @num1: number 1 to multiply.
- * @num2: number 2 to multiply.
- *
- * Description: If the number of arguments is incorrect or one number
- *              contains non-digits, the function exits with a status of 98.
- * Return: Always 0.
- */
-int multiplyNumbers(const char *num1, const char *num2)
-{
-	int i, j, carry, n1, n2, sum, nonZeroFound;
-	int len1, len2, lenResult, *result;
-
-	len1 = _strlen(num1);
-	len2 = _strlen(num2);
-	lenResult = len1 + len2;
-	result = calloc_custom(lenResult, sizeof(int));
-
-	if (result == NULL)
-		return (-1);
-
-	for (i = len1 - 1; i >= 0; i--)
-	{
-		carry = 0;
-		n1 = num1[i] - '0';
-
-		for (j = len2 - 1; j >= 0; j--)
-		{
-			n2 = num2[j] - '0';
-			sum = n1 * n2 + result[i + j + 1] + carry;
-			result[i + j + 1] = sum % 10;
-			carry = sum / 10;
-		}
-
-		result[i] += carry;
-	}
-
-	nonZeroFound = 0;
-
-	for (i = 0; i < lenResult; i++)
-	{
-		if (result[i] != 0)
-			nonZeroFound = 1;
-		if (nonZeroFound)
-			printf("%d", result[i]);
-	}
-	_putchar('\n');
-
-	free(result);
-
+	printf("Error\n");
 	return (0);
 }
-
-
 /**
- * main - Multiplies two positive numbers.
- * @argv: The number of arguments passed to the program.
- * @argc: An array of pointers to the arguments.
- *
- * Description: If the number of arguments is incorrect or one number
- *              contains non-digits, the function exits with a status of 98.
- * Return: Always 0.
+ * multiply - multiplies 2 #'s, prints result, must be 2 #'s
+ * @num1: factor # 1 (is the smaller of 2 numbers)
+ * @len_1: length of factor 1
+ * @num2: factor # 2 (is the larger of 2 numbers)
+ * @len_2: length of factor 2
+ * @len_r: length of result arrays
+ * Return: 0 fail, 1 success
  */
-int main(int argc, char *argv[])
+int *multiply(char *num1, int len_1, char *num2, int len_2, int len_r)
 {
+	int i = 0, i1 = len_1 - 1;
+	int i2, product, carry, digit, *mul_result, *sum_result;
+
+	sum_result = _calloc(sizeof(int), (len_r));
+	while (i < len_1)
+	{
+		mul_result = _calloc(sizeof(int), len_r);
+		i2 = len_2 - 1, digit = (len_r - 1 - i);
+		if (!is_digit(num1[i1]))
+			return (NULL);
+		carry = 0;
+		while (i2 >= 0)
+		{
+			if (!is_digit(num2[i2]))
+				return (NULL);
+			product = (num1[i1] - '0') * (num2[i2] - '0');
+			product += carry;
+			mul_result[digit] += product % 10;
+			carry = product / 10;
+			digit--, i2--;
+		}
+		add_arrays(mul_result, sum_result, len_r);
+		free(mul_result);
+	    i++, i1--;
+	}
+	return (sum_result);
+}
+/**
+ * print_me - prints my array of the hopeful product here
+ * @sum_result: pointer to int array with numbers to add
+ * @len_r: length of result array
+ * Return: void
+ */
+void print_me(int *sum_result, int len_r)
+{
+	int i = 0;
+
+	while (sum_result[i] == 0 && i < len_r)
+		i++;
+	if (i == len_r)
+		_putchar('0');
+	while (i < len_r)
+		_putchar(sum_result[i++] + '0');
+	_putchar('\n');
+}
+/**
+ * main - multiply 2 input #'s of large lengths and print result or print Error
+ * @argc: input count of args
+ * @argv: input array of string args
+ * Return: 0, Success
+ */
+int main(int argc, char **argv)
+{
+	int len_1, len_2, len_r, temp, *sum_result;
 	char *num1, *num2;
 
 	if (argc != 3)
 	{
 		printf("Error\n");
-		return (98);
+		exit(98);
 	}
-
-	num1 = argv[1];
-	num2 = argv[2];
-
-	if (!isPositiveNumber(num1) || !isPositiveNumber(num2))
+	len_1 = str_len(argv[1]), len_2 = str_len(argv[2]);
+	len_r = len_1 + len_2;
+	if (len_1 < len_2)
+		num1 = argv[1], num2 = argv[2];
+	else
 	{
-		printf("Error\n");
-		return (98);
+		num1 = argv[2], num2 = argv[1];
+		temp = len_2, len_2 = len_1, len_1 = temp;
 	}
-
-	multiplyNumbers(num1, num2);
-
+	sum_result = multiply(num1, len_1, num2, len_2, len_r);
+	if (sum_result == NULL)
+		exit(98);
+	print_me(sum_result, len_r);
 	return (0);
 }
