@@ -10,6 +10,7 @@ int isPositiveNumber(const char *str);
 int multiplyNumbers(const char *num1, const char *num2);
 int _isdigit(int c);
 size_t _strlen(const char *str);
+void *_calloc(unsigned int nmemb, unsigned int size);
 
 /**
  * isPositiveNumber - check if two positive numbers.
